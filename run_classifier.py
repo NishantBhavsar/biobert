@@ -83,6 +83,8 @@ flags.DEFINE_integer("predict_batch_size", 8, "Total batch size for predict.")
 
 flags.DEFINE_float("learning_rate", 5e-5, "The initial learning rate for Adam.")
 
+flags.DEFINE_integer("num_class", 2, "Total number of class in multiclass classification.")
+
 flags.DEFINE_float("num_train_epochs", 3.0,
                    "Total number of training epochs to perform.")
 
@@ -814,7 +816,7 @@ def main(_):
 
   processor = processors[task_name]()
 
-  label_list = processor.get_labels()
+  label_list = [str(i) for i in range(FLAGS.num_class)]
 
   tokenizer = tokenization.FullTokenizer(
       vocab_file=FLAGS.vocab_file, do_lower_case=FLAGS.do_lower_case)
